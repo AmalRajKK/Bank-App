@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Models\Job;
 use App\Models\User;
+use Illuminate\Contracts\Queue\Job as QueueJob;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Queue\Jobs\Job as JobsJob;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 

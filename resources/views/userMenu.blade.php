@@ -13,7 +13,7 @@
         </thead>
         <tbody>
                 <td class="py-2 px-4">{{ Auth::user()->email}}</td>
-                <td class="py-2 px-4">{{ $account->balance }}</td>
+                <td class="py-2 px-4">{{ $account->balance }}-INR</td>
         </tbody>
     </table>
 </x-layout>
