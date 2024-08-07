@@ -42,7 +42,7 @@
                         <td class="py-2 px-4">{{ $transaction->balance }}</td>
                         <td class="py-2 px-4">
                             @if($transaction->type == 'debit' || $transaction->type == 'credit')
-                                {{ $transaction->recipient ? $transaction->recipient->email : 'N/A' }}
+                                {{ $transaction->recipient ? $transaction->recipient->email : 'Self Transaction' }}
                             @else
                                 N/A
                             @endif
