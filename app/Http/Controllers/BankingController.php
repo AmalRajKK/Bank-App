@@ -21,7 +21,7 @@ class BankingController extends Controller
     public function deposit(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:1',
+            'amount' => ['required', 'numeric', 'min:1'],
         ]);
 
         $account = Account::where('user_id', Auth::id())->first();
@@ -44,7 +44,7 @@ class BankingController extends Controller
     public function withdraw(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:1',
+            'amount' => ['required', 'numeric', 'min:1'],
         ]);
 
         $account = Account::where('user_id', Auth::id())->first();
@@ -72,8 +72,8 @@ class BankingController extends Controller
     public function transfer(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:1',
-            'email' => 'required|email',
+            'amount' => ['required', 'numeric', 'min:1'],
+            'email' => ['required', 'email'],
         ]);
 
         $recipient = User::where('email', $request->email)->first();
