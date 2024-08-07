@@ -15,13 +15,11 @@ Route::view('/', 'home');
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');
 
-Route::middleware(['web'])->group(function () {
-    Route::get('/register', [RegisterUserController::class, 'create'])->name('register');
-    Route::post('/register', [RegisterUserController::class, 'store']);
-    Route::get('/login', [SessionController::class, 'create'])->name('login');
-    Route::post('/login', [SessionController::class, 'store']);
-    Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
-});
+Route::get('/register', [RegisterUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisterUserController::class, 'store']);
+Route::get('/login', [SessionController::class, 'create'])->name('login');
+Route::post('/login', [SessionController::class, 'store']);
+Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/userMenu', [BankingController::class, 'index'])->name('home');

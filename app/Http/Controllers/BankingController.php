@@ -71,6 +71,7 @@ class BankingController extends Controller
 
     public function transfer(Request $request)
     {
+
         $request->validate([
             'amount' => ['required', 'numeric', 'min:1'],
             'email' => ['required', 'email'],
@@ -80,6 +81,10 @@ class BankingController extends Controller
 
         if (!$recipient) {
             return redirect()->back()->withErrors(['noUser' => 'user not exist']);
+        }
+
+        if ($recipient->email === Auth::user()->email) {
+            return redirect()->back()->withErrors(['sameUser' => 'You cannot transfer money to yourself']);
         }
 
         $account = Account::where('user_id', Auth::id())->first();

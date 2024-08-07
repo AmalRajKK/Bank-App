@@ -21,6 +21,15 @@
                             </ul>
                         </div>
                     @endif
+                    @if ($errors->has('sameUser'))
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-red-500 text-xs">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                     </x-form-field>
                     <x-form-field>
                         <x-form-label for="amount">Amount</x-form-label>
