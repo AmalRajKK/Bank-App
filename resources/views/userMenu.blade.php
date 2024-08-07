@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>User Menu</x-slot:title>
-    <x-slot:heading>User Menu</x-slot:heading>
+    <x-slot:heading>Dashboard</x-slot:heading>
     <div style="padding: 25px">
     <h1>WELCOME  : {{ Auth::user()->name }} </h1>
     </div>

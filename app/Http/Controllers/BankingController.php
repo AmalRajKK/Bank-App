@@ -124,7 +124,7 @@ class BankingController extends Controller
     {
         $userId = Auth::id();
 
-        $transactions = Transaction::with('recipient')->where('user_id', $userId)->get();
+        $transactions = Transaction::with('recipient')->where('user_id', $userId)->paginate(10);;
 
         return view('banking.statement', compact('transactions'));
     }
