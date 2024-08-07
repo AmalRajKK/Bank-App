@@ -28,6 +28,7 @@
                         <th class="py-2 px-4 text-left">Type</th>
                         <th class="py-2 px-4 text-left">Details</th>
                         <th class="py-2 px-4 text-left">Amount</th>
+                        <th class="py-2 px-4 text-left">Balance</th>
                         <th class="py-2 px-4 text-left">Recipient</th>
                         <th class="py-2 px-4 text-left">Date</th>
                     </tr>
@@ -38,6 +39,7 @@
                         <td class="py-2 px-4">{{ ucfirst($transaction->type) }}</td>
                         <td class="py-2 px-4">{{ $transaction->details }}</td>
                         <td class="py-2 px-4">{{ number_format($transaction->amount, 2) }}</td>
+                        <td class="py-2 px-4">{{ $transaction->balance }}</td>
                         <td class="py-2 px-4">
                             @if($transaction->type == 'debit' || $transaction->type == 'credit')
                                 {{ $transaction->recipient ? $transaction->recipient->email : 'N/A' }}

@@ -25,7 +25,7 @@ class BankingController extends Controller
         ]);
 
         $account = Account::where('user_id', Auth::id())->first();
-        $account->balance += $request->amount;
+        $account->balance = $account->balance + $request->amount;
         $account->save();
 
         Transaction::create([
@@ -34,6 +34,7 @@ class BankingController extends Controller
             'type' => 'credit',
             'details' => 'deposit',
             'amount' => $request->amount,
+            'balance' => $account->balance,
         ]);
 
         return redirect('/userMenu');
@@ -52,7 +53,7 @@ class BankingController extends Controller
             return redirect()->back()->withErrors(['noBalance' => 'Insufficient balance']);
         }
 
-        $account->balance -= $request->amount;
+        $account->balance = $account->balance - $request->amount;
         $account->save();
 
         Transaction::create([
@@ -61,6 +62,7 @@ class BankingController extends Controller
             'type' => 'debit',
             'details' => 'withdraw',
             'amount' => $request->amount,
+            'balance' => $account->balance,
         ]);
 
         return redirect('/userMenu');
@@ -87,10 +89,10 @@ class BankingController extends Controller
             return redirect()->back()->withErrors(['noBalance' => 'Insufficient balance']);
         }
 
-        $account->balance -= $request->amount;
+        $account->balance = $account->balance - $request->amount;
         $account->save();
 
-        $recipientAccount->balance += $request->amount;
+        $recipientAccount->balance = $recipientAccount->balance + $request->amount;
         $recipientAccount->save();
 
         Transaction::create([
@@ -99,6 +101,7 @@ class BankingController extends Controller
             'type' => 'debit',
             'details' => 'transfer to ' . $recipient->email,
             'amount' => $request->amount,
+            'balance' => $account->balance,
             'recipient_id' => $recipient->id,
         ]);
 
@@ -108,6 +111,7 @@ class BankingController extends Controller
             'type' => 'credit',
             'details' => 'transfer from ' . Auth::user()->email,
             'amount' => $request->amount,
+            'balance' => $recipientAccount->balance,
             'recipient_id' => Auth::id(),
         ]);
 
@@ -120,13 +124,10 @@ class BankingController extends Controller
     {
         $userId = Auth::id();
 
-        // Eager load the recipient relationship
         $transactions = Transaction::with('recipient')->where('user_id', $userId)->get();
 
         return view('banking.statement', compact('transactions'));
     }
-
-
 
 
     public function depositView()
